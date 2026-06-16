@@ -232,7 +232,7 @@
             margin-top: 15px;
             font-weight: bold;
             font-size: 0.95rem;
-            display: none; /* 預設隱藏 */
+            display: none;
         }
 
         /* 單項詳情卡片 */
@@ -314,15 +314,16 @@
                 <div class="card-title">📊 CMS 等級與每月計費試算</div>
                 
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <!-- 修正處：將 value 設為正確的額度數值 -->
                     <select id="cms-level" class="form-select">
                         <option value="0">請選擇 CMS 等級...</option>
-                        <option value="2">第 2 級 (額度: $10,020)</option>
-                        <option value="3">第 3 級 (額度: $15,460)</option>
-                        <option value="4">第 4 級 (額度: $18,580)</option>
-                        <option value="5">第 5 級 (額度: $24,100)</option>
-                        <option value="6">第 6 級 (額度: $28,070)</option>
-                        <option value="7">第 7 級 (額度: $32,090)</option>
-                        <option value="8">第 8 級 (額度: $36,180)</option>
+                        <option value="10020">第 2 級 (額度: $10,020)</option>
+                        <option value="15460">第 3 級 (額度: $15,460)</option>
+                        <option value="18580">第 4 級 (額度: $18,580)</option>
+                        <option value="24100">第 5 級 (額度: $24,100)</option>
+                        <option value="28070">第 6 級 (額度: $28,070)</option>
+                        <option value="32090">第 7 級 (額度: $32,090)</option>
+                        <option value="36180">第 8 級 (額度: $36,180)</option>
                     </select>
                     
                     <select id="user-cat" class="form-select">
@@ -385,7 +386,7 @@
 
     <script>
         const serviceData = [
-            { code: 'BA01', name: '基本身體清潔', price: 260, desc: '床上/浴室洗頭、洗澡、更衣、理髮、修剪指甲、刮鬍子、口腔清潔等。' },
+            { code: 'BA01', name: '基本身體清潔', price: 260, desc: '床上/浴室洗頭、洗澡、更衣、理 বৃহত্তর、修剪指甲、刮鬍子、口腔清潔等。' },
             { code: 'BA02', name: '基本日常生活照顧', price: 130, desc: '協助進食、服藥、如廁、更換尿片、翻身拍背、上下床、刷牙洗臉等。' },
             { code: 'BA03', name: '測量生命徵象', price: 50, desc: '測量血壓、血糖、體溫、脈搏、呼吸等生理數值並記錄。' },
             { code: 'BA04', name: '協助餵食或灌食', price: 170, desc: '提供餐食餵食，或經由胃管、腸管進行營養品灌食，及口鼻分泌物清理。' },
@@ -480,7 +481,6 @@
             const item = serviceData.find(s => s.code === code);
             if (!item) return;
 
-            // 顯示單項詳情與單次費用
             const rate = parseFloat(userCatSelect.value);
             const singlePay = Math.round(item.price * rate);
 
@@ -546,6 +546,7 @@
                 selectedItemsList.appendChild(div);
             });
 
+            // 這裡會抓取 select 的 value，因為修正了 value，現在會取得正確的額度 (如 10020)
             const cmsLimit = parseInt(cmsLevelSelect.value);
             const catRate = parseFloat(userCatSelect.value);
             
@@ -556,7 +557,6 @@
             let excessAmount = 0;
 
             if (cmsLimit === 0) {
-                // 未選擇 CMS (純算自付額)
                 document.getElementById('row-cms-limit').style.display = 'none';
                 document.getElementById('row-cms-remain').style.display = 'none';
                 userPay = Math.round(totalGov * catRate);
@@ -579,14 +579,12 @@
                 }
             }
 
-            // 更新畫面數值
             document.getElementById('val-total-gov').textContent = `NT$ ${totalGov.toLocaleString()}`;
             document.getElementById('val-cms-limit').textContent = `NT$ ${cmsLimit.toLocaleString()}`;
             document.getElementById('val-remain').textContent = `NT$ ${remain.toLocaleString()}`;
             document.getElementById('val-user-pay').textContent = `NT$ ${userPay.toLocaleString()}`;
             document.getElementById('val-gov-subsidy').textContent = `NT$ ${govSubsidy.toLocaleString()}`;
 
-            // 超額警告處理
             const warningEl = document.getElementById('quota-warning');
             const remainEl = document.getElementById('val-remain');
             if (isExceed) {
@@ -598,7 +596,6 @@
                 remainEl.style.color = 'var(--primary-color)';
             }
             
-            // 若有選取單項，同步更新下方詳細單次費用的自付額顯示
             if (currentSelectedCode) selectRow(currentSelectedCode);
         }
 
