@@ -3,327 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>居服督導全方位 AI 助理與管理儀表板</title>
+    <title>居服督導全方位平台 - 計費儀表板</title>
     <style>
-        :root {
-            --primary-color: #00796b;
-            --primary-dark: #004d40;
-            --primary-light: #e0f2f1;
-            --secondary-color: #2c3e50;
-            --background-color: #f4f7f6;
-            --card-background: #ffffff;
-            --text-color: #333333;
-            --border-color: #e0e0e0;
-            
-            --cat1-color: #2980b9;
-            --cat2-color: #d35400;
-            --cat3-color: #27ae60;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .main-container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        /* 導覽列選單 */
-        .nav-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            overflow-x: auto;
-        }
-
-        .nav-btn {
-            background: transparent;
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary-dark);
-        }
-
-        .nav-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* 頁籤內容區塊控制 */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block; /* 預設為 block，計費儀表板會覆蓋為 grid */
-        }
-
-        /* ----- 計費儀表板特定樣式 ----- */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: 1.8fr 1.2fr;
-            }
-        }
-
-        .card {
-            background: var(--card-background);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .search-box input, .form-select {
-            flex: 1;
-            padding: 10px 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus, .form-select:focus, .form-control:focus {
-            border-color: var(--primary-color);
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-            white-space: nowrap;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-secondary {
-            background-color: #7f8c8d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #95a5a6;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: #f8f9fa;
-            color: var(--secondary-color);
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: inset 0 -1px 0 var(--border-color);
-        }
-
-        tr.selected-row { background-color: #f0f7f6 !important; }
-        tbody tr { cursor: pointer; transition: background-color 0.2s; }
-        tbody tr:hover { background-color: #fafafa; }
-
-        .text-right { text-align: right; }
-        .text-center { text-align: center; }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
-        }
-        .badge-code { background-color: var(--secondary-color); font-size: 0.9rem;}
-        
-        .fee-text { font-weight: bold; }
+        :root { --primary-color: #00796b; --primary-dark: #004d40; --primary-light: #e0f2f1; --secondary-color: #2c3e50; --background-color: #f4f7f6; --card-background: #ffffff; --border-color: #e0e0e0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: var(--background-color); color: #333; line-height: 1.6; padding: 20px; }
+        .main-container { max-width: 1300px; margin: 0 auto; }
+        header { background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; }
+        header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        /* 導覽列 */
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow-x: auto; }
+        .nav-btn { text-decoration: none; display: inline-block; padding: 12px 20px; font-size: 1rem; font-weight: bold; color: var(--secondary-color); border-radius: 8px; transition: all 0.3s; white-space: nowrap; }
+        .nav-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
+        .nav-btn.active { background: var(--primary-color); color: white; }
+        /* 排版與卡片 */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; } }
+        .card { background: var(--card-background); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); }
+        .card-title { font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid var(--primary-light); font-weight: bold; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 15px; }
+        .search-box input, .form-select { flex: 1; padding: 10px 15px; border: 2px solid var(--border-color); border-radius: 8px; outline: none; }
+        .btn { background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn-secondary { background-color: #7f8c8d; }
+        .table-responsive { overflow-x: auto; max-height: 500px; border: 1px solid var(--border-color); border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); }
+        th { background-color: #f8f9fa; position: sticky; top: 0; }
+        .badge { padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; color: white; background-color: var(--secondary-color); }
         .qty-input { width: 55px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; text-align: center; }
-        .checkbox-cell { width: 40px; }
-        .checkbox-cell input { width: 18px; height: 18px; cursor: pointer; }
-
         .summary-box { background: var(--primary-light); border-radius: 8px; padding: 18px; margin-top: 15px; border: 1px solid #b2dfdb; }
-        .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #90a4ae; font-size: 1.05rem; }
-        .summary-row:last-child { border-bottom: none; padding-top: 15px; margin-top: 5px; }
-
-        .warning-alert { background-color: #fdeaea; color: #e74c3c; padding: 12px; border-radius: 8px; border-left: 4px solid #e74c3c; margin-top: 15px; font-weight: bold; font-size: 0.95rem; display: none; }
-
-        /* ----- 表單生成器公用樣式 ----- */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .form-grid { grid-template-columns: 1fr 1fr; }
-            .full-width { grid-column: span 2; }
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-label {
-            font-weight: bold;
-            color: var(--secondary-color);
-            font-size: 0.95rem;
-        }
-
-        .form-control {
-            padding: 10px 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-            width: 100%;
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .output-area {
-            background-color: #f8f9fa;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 200px;
-            font-family: inherit;
-            white-space: pre-wrap;
-            margin-top: 15px;
-            line-height: 1.8;
-        }
-
-        .action-bar {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 15px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-        }
-
+        .summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #90a4ae; }
+        .warning-alert { background-color: #fdeaea; color: #e74c3c; padding: 12px; border-radius: 8px; margin-top: 15px; font-weight: bold; display: none; }
     </style>
 </head>
 <body>
-
     <div class="main-container">
-        
         <header>
             <h1>👩‍⚕️ 居服督導全方位工作平台</h1>
             <p>整合長照計費試算、家訪紀錄生成與異動通報，提升督導行政效率</p>
         </header>
 
-        <!-- 系統導覽列 -->
+        <!-- 導覽列 (目前在首頁，標記 active) -->
         <nav class="nav-tabs">
-            <button class="nav-btn active" onclick="switchTab('billing')">💰 長照計費儀表板</button>
-            <button class="nav-btn" onclick="switchTab('visit')">📝 家訪紀錄生成單</button>
-            <button class="nav-btn" onclick="switchTab('report')">⚠️ 異動通報產生器</button>
+            <a href="index.html" class="nav-btn active">💰 長照計費儀表板</a>
+            <a href="visit.html" class="nav-btn">📝 家訪紀錄生成單</a>
+            <a href="report.html" class="nav-btn">⚠️ 異動通報產生器</a>
         </nav>
 
-        <!-- ========================================== -->
-        <!-- 頁籤 1：長照計費儀表板 (既有功能)            -->
-        <!-- ========================================== -->
-        <div id="tab-billing" class="tab-content active dashboard-grid" style="display: grid;">
+        <div class="dashboard-grid">
             <!-- 左側：服務查詢與列表 -->
             <div class="card">
                 <div class="card-title">🔍 服務碼別檢索與勾選 (擬訂每月計畫)</div>
@@ -335,321 +62,61 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="text-center checkbox-cell">選取</th>
-                                <th>碼別</th>
-                                <th>服務項目</th>
-                                <th class="text-right">公告單價</th>
-                                <th class="text-center">次數/月</th>
+                                <th>選取</th><th>碼別</th><th>服務項目</th><th>單價</th><th>次數/月</th>
                             </tr>
                         </thead>
-                        <tbody id="service-table-body">
-                            <!-- 動態渲染 -->
-                        </tbody>
+                        <tbody id="service-table-body"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 右側：CMS 計畫試算與單項詳情 -->
-            <div style="display: flex; flex-direction: column;">
-                <div class="card">
-                    <div class="card-title">📊 CMS 等級與每月計費試算</div>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <select id="cms-level" class="form-select">
-                            <option value="0">請選擇 CMS 等級...</option>
-                            <option value="10020">第 2 級 (額度: $10,020)</option>
-                            <option value="15460">第 3 級 (額度: $15,460)</option>
-                            <option value="18580">第 4 級 (額度: $18,580)</option>
-                            <option value="24100">第 5 級 (額度: $24,100)</option>
-                            <option value="28070">第 6 級 (額度: $28,070)</option>
-                            <option value="32090">第 7 級 (額度: $32,090)</option>
-                            <option value="36180">第 8 級 (額度: $36,180)</option>
-                        </select>
-                        <select id="user-cat" class="form-select">
-                            <option value="0.16">一般戶 (16%)</option>
-                            <option value="0.05">中低收 (5%)</option>
-                            <option value="0">低收入 (0%)</option>
-                        </select>
-                    </div>
-                    <div id="calculator-placeholder" style="color: #95a5a6; text-align: center; padding: 20px 0;">尚未勾選任何服務項目</div>
-                    <div id="calculator-content" style="display: none;">
-                        <div style="max-height: 150px; overflow-y: auto; margin-bottom: 10px; font-size: 0.9rem;" id="selected-items-list"></div>
-                        <div class="summary-box">
-                            <div class="summary-row" id="row-cms-limit" style="display:none; color: #2c3e50;">
-                                <span>🎯 CMS 給付總額度:</span><span class="fee-text" id="val-cms-limit">NT$ 0</span>
-                            </div>
-                            <div class="summary-row">
-                                <span>📋 計畫總價:</span><span class="fee-text" id="val-total-gov">NT$ 0</span>
-                            </div>
-                            <div class="summary-row" id="row-cms-remain" style="display:none;">
-                                <span>💡 剩餘可用額度:</span><span class="fee-text" id="val-remain" style="color: var(--primary-color);">NT$ 0</span>
-                            </div>
-                            <div class="summary-row" style="color: #27ae60;">
-                                <span>🏛️ 政府補助金額:</span><span class="fee-text" id="val-gov-subsidy">NT$ 0</span>
-                            </div>
-                            <div class="summary-row" style="border-top: 2px solid #b2dfdb; padding-top: 15px; margin-top: 10px;">
-                                <span style="font-weight: bold; color: #d35400; font-size: 1.15rem;">💰 案家每月需自付額:</span>
-                                <span class="fee-text" id="val-user-pay" style="font-size: 1.3rem; color: #d35400;">NT$ 0</span>
-                            </div>
-                        </div>
-                        <div id="quota-warning" class="warning-alert">
-                            ⚠️ 超額警告：超出給付額度 ($<span id="val-excess-amount">0</span>)，需由案家全額自費。
+            <!-- 右側：CMS 計畫試算 -->
+            <div class="card">
+                <div class="card-title">📊 CMS 等級與每月計費試算</div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <select id="cms-level" class="form-select">
+                        <option value="0">請選擇 CMS 等級...</option>
+                        <option value="10020">第 2 級 (額度: $10,020)</option>
+                        <option value="15460">第 3 級 (額度: $15,460)</option>
+                        <option value="18580">第 4 級 (額度: $18,580)</option>
+                        <option value="24100">第 5 級 (額度: $24,100)</option>
+                        <option value="28070">第 6 級 (額度: $28,070)</option>
+                        <option value="32090">第 7 級 (額度: $32,090)</option>
+                        <option value="36180">第 8 級 (額度: $36,180)</option>
+                    </select>
+                    <select id="user-cat" class="form-select">
+                        <option value="0.16">一般戶 (16%)</option>
+                        <option value="0.05">中低收 (5%)</option>
+                        <option value="0">低收入 (0%)</option>
+                    </select>
+                </div>
+                <div id="calculator-placeholder" style="color: #95a5a6; text-align: center; padding: 20px 0;">尚未勾選任何服務項目</div>
+                <div id="calculator-content" style="display: none;">
+                    <div style="max-height: 150px; overflow-y: auto; margin-bottom: 10px;" id="selected-items-list"></div>
+                    <div class="summary-box">
+                        <div class="summary-row" id="row-cms-limit" style="display:none;"><span>🎯 CMS 給付總額度:</span><span id="val-cms-limit">NT$ 0</span></div>
+                        <div class="summary-row"><span>📋 計畫總價:</span><span id="val-total-gov">NT$ 0</span></div>
+                        <div class="summary-row" id="row-cms-remain" style="display:none;"><span>💡 剩餘可用額度:</span><span id="val-remain">NT$ 0</span></div>
+                        <div class="summary-row" style="color: #27ae60;"><span>🏛️ 政府補助金額:</span><span id="val-gov-subsidy">NT$ 0</span></div>
+                        <div class="summary-row" style="border-top: 2px solid #b2dfdb; padding-top: 15px; margin-top: 10px; color: #d35400; font-weight:bold;">
+                            <span>💰 案家每月需自付額:</span><span id="val-user-pay">NT$ 0</span>
                         </div>
                     </div>
+                    <div id="quota-warning" class="warning-alert">⚠️ 超額警告：超出給付額度 ($<span id="val-excess-amount">0</span>)，需由案家全額自費。</div>
                 </div>
             </div>
         </div>
-
-        <!-- ========================================== -->
-        <!-- 頁籤 2：家訪紀錄生成單 (新增功能)            -->
-        <!-- ========================================== -->
-        <div id="tab-visit" class="tab-content">
-            <div class="card">
-                <div class="card-title">📝 居家督導家訪紀錄生成單</div>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">快速結構化您的訪視紀錄，生成後可直接複製貼上至照管系統或機構表單。</p>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">個案姓名</label>
-                        <input type="text" id="visit-name" class="form-control" placeholder="例：王小明">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">訪視日期</label>
-                        <input type="date" id="visit-date" class="form-control">
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label">訪視目的</label>
-                        <select id="visit-purpose" class="form-select">
-                            <option value="例行性訪視">例行性訪視 (每月/每季)</option>
-                            <option value="新案開案評估">新案開案評估</option>
-                            <option value="服務異常處理">服務異常/申訴處理</option>
-                            <option value="更換居服員交接">更換居服員交接</option>
-                            <option value="個案狀況惡化評估">個案狀況惡化/跌倒後評估</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label">個案現況與生理狀態簡述</label>
-                        <textarea id="visit-status" class="form-control" placeholder="例：個案意識清楚，但近期雙腿較無力。生命徵象穩定。"></textarea>
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label">服務滿意度與案家反映</label>
-                        <textarea id="visit-feedback" class="form-control" placeholder="例：家屬對目前居服員張阿姨的服務態度表示滿意，但希望洗澡時間能稍微延後至下午四點。"></textarea>
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label">督導評估與後續處置計畫</label>
-                        <textarea id="visit-action" class="form-control" placeholder="例：已與居服員協調調整服務時段。持續觀察個案下肢無力情形，並建議家屬可自費增購輔具。"></textarea>
-                    </div>
-                </div>
-
-                <div class="action-bar">
-                    <button class="btn btn-secondary" onclick="clearForm('visit')">清空表單</button>
-                    <button class="btn" onclick="generateVisitText()">✨ 產生正規紀錄</button>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <label class="form-label">產出結果 (可直接複製)：</label>
-                    <div id="visit-output" class="output-area">填寫上方表單後，點擊「產生正規紀錄」...</div>
-                    <div class="action-bar" style="border:none; margin-top: 5px; padding-top: 0;">
-                        <button class="btn" style="background-color: #27ae60;" onclick="copyText('visit-output')">📋 複製紀錄</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- 頁籤 3：異動通報產生器 (新增功能)            -->
-        <!-- ========================================== -->
-        <div id="tab-report" class="tab-content">
-            <div class="card">
-                <div class="card-title">⚠️ 長照服務異動通報產生器</div>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">協助快速產出標準化之「異動通報文字」，方便傳送給 A 個管(照管專員) 進行核備。</p>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">個案姓名</label>
-                        <input type="text" id="report-name" class="form-control" placeholder="例：李大華">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">聯絡人 / 關係</label>
-                        <input type="text" id="report-contact" class="form-control" placeholder="例：李小明 (兒子)">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">異動類型</label>
-                        <select id="report-type" class="form-select">
-                            <option value="【暫停服務】">【暫停服務】(住院/請假)</option>
-                            <option value="【恢復服務】">【恢復服務】(出院/銷假)</option>
-                            <option value="【終止服務】">【終止服務】(往生/入住機構/搬家)</option>
-                            <option value="【增加服務項目/次數】">【增加服務】(需調整照顧計畫)</option>
-                            <option value="【減少服務項目/次數】">【減少服務】(案家需求減少)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">異動生效日期</label>
-                        <input type="date" id="report-date" class="form-control">
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label">異動原因與詳細說明</label>
-                        <textarea id="report-reason" class="form-control" placeholder="例：個案於 5/10 因發燒引發肺炎入住長庚醫院，故自 5/11 起暫停所有居家服務。預計住院一週，出院前會再行通知恢復服務。"></textarea>
-                    </div>
-                </div>
-
-                <div class="action-bar">
-                    <button class="btn btn-secondary" onclick="clearForm('report')">清空表單</button>
-                    <button class="btn" onclick="generateReportText()">✨ 產生通報內文</button>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <label class="form-label">產出結果 (可直接複製傳給A個管)：</label>
-                    <div id="report-output" class="output-area">填寫上方表單後，點擊「產生通報內文」...</div>
-                    <div class="action-bar" style="border:none; margin-top: 5px; padding-top: 0;">
-                        <button class="btn" style="background-color: #27ae60;" onclick="copyText('report-output')">📋 複製通報文字</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <!-- JavaScript 區塊 -->
     <script>
-        // ==========================================
-        // 頁籤切換邏輯
-        // ==========================================
-        function switchTab(tabId) {
-            // 隱藏所有內容
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            
-            // 顯示選擇的內容
-            const target = document.getElementById(`tab-${tabId}`);
-            target.classList.add('active');
-            
-            // 如果是 billing，要加上 grid class
-            if(tabId === 'billing') {
-                target.style.display = 'grid';
-            } else {
-                target.style.display = 'block';
-            }
-
-            // 更新按鈕狀態
-            event.target.classList.add('active');
-        }
-
-        // ==========================================
-        // 工具：複製文字到剪貼簿
-        // ==========================================
-        function copyText(elementId) {
-            const textToCopy = document.getElementById(elementId).innerText;
-            if(!textToCopy || textToCopy.includes('點擊「產生')) {
-                alert("請先產生內容再進行複製！");
-                return;
-            }
-            
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("已成功複製到剪貼簿！");
-            }).catch(err => {
-                alert("複製失敗，請手動選取複製。");
-            });
-        }
-
-        // 工具：清空表單
-        function clearForm(type) {
-            if (type === 'visit') {
-                document.getElementById('visit-name').value = '';
-                document.getElementById('visit-date').value = '';
-                document.getElementById('visit-purpose').selectedIndex = 0;
-                document.getElementById('visit-status').value = '';
-                document.getElementById('visit-feedback').value = '';
-                document.getElementById('visit-action').value = '';
-                document.getElementById('visit-output').innerText = '填寫上方表單後，點擊「產生正規紀錄」...';
-            } else if (type === 'report') {
-                document.getElementById('report-name').value = '';
-                document.getElementById('report-contact').value = '';
-                document.getElementById('report-type').selectedIndex = 0;
-                document.getElementById('report-date').value = '';
-                document.getElementById('report-reason').value = '';
-                document.getElementById('report-output').innerText = '填寫上方表單後，點擊「產生通報內文」...';
-            }
-        }
-
-        // ==========================================
-        // 生成器 1：家訪紀錄生成
-        // ==========================================
-        function generateVisitText() {
-            const name = document.getElementById('visit-name').value.trim() || "未填寫";
-            const date = document.getElementById('visit-date').value || "未填寫";
-            const purpose = document.getElementById('visit-purpose').value;
-            const status = document.getElementById('visit-status').value.trim() || "無特別描述";
-            const feedback = document.getElementById('visit-feedback').value.trim() || "無特別意見";
-            const action = document.getElementById('visit-action').value.trim() || "持續現有服務，後續追蹤";
-
-            const output = `【居家照顧服務 - 督導訪視紀錄】
---------------------------------------------
-▪️ 個案姓名：${name}
-▪️ 訪視日期：${date}
-▪️ 訪視目的：${purpose}
-
-【個案現況與生理狀態】
-${status}
-
-【服務滿意度與案家反映】
-${feedback}
-
-【督導評估與後續處置計畫】
-${action}
---------------------------------------------
-紀錄人員：(請填寫您的姓名)`;
-
-            document.getElementById('visit-output').innerText = output;
-        }
-
-        // ==========================================
-        // 生成器 2：異動通報生成
-        // ==========================================
-        function generateReportText() {
-            const name = document.getElementById('report-name').value.trim() || "未填寫";
-            const contact = document.getElementById('report-contact').value.trim() || "未填寫";
-            const type = document.getElementById('report-type').value;
-            const date = document.getElementById('report-date').value || "未填寫";
-            const reason = document.getElementById('report-reason').value.trim() || "未詳細說明";
-
-            // 取得今天的日期作為通報日期
-            const today = new Date();
-            const todayStr = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`;
-
-            const output = `個管您好，此為【B單位居家服務異動通報】：
-
-📌 異動類型：${type}
-📌 個案姓名：${name}
-📌 家屬聯絡人：${contact}
-📌 異動生效日：${date}
-
-📝 【異動原因說明】
-${reason}
-
-再請個管協助知悉與辦理計畫異動/核備，感謝您的協助！如有需要補充資料請隨時與我聯繫。
-(通報日期：${todayStr})`;
-
-            document.getElementById('report-output').innerText = output;
-        }
-
-        // ==========================================
-        // 計費儀表板原始邏輯 (不變)
-        // ==========================================
         const serviceData = [
-            { code: 'BA01', name: '基本身體清潔', price: 260 },
-            { code: 'BA02', name: '基本日常生活照顧', price: 130 },
-            { code: 'BA03', name: '測量生命徵象', price: 50 },
-            { code: 'BA04', name: '協助餵食或灌食', price: 170 },
-            { code: 'BA05', name: '餐食照顧', price: 200 },
-            { code: 'BA07', name: '日常身體照顧', price: 155 },
-            { code: 'BA08', name: '足部護理', price: 500 },
-            { code: 'BA09', name: '協助沐浴及洗頭', price: 325 },
-            { code: 'BA10', name: '翻身拍背', price: 155 },
-            { code: 'BA11', name: '肢體關節活動', price: 155 },
-            { code: 'BA12', name: '協助執行輔助性醫療', price: 130 },
-            { code: 'BA13', name: '安全看顧', price: 200 },
-            { code: 'BA14', name: '陪伴服務', price: 175 },
-            { code: 'BA15', name: '巡視服務', price: 130 }
+            { code: 'BA01', name: '基本身體清潔', price: 260 }, { code: 'BA02', name: '基本日常生活照顧', price: 130 },
+            { code: 'BA03', name: '測量生命徵象', price: 50 }, { code: 'BA04', name: '協助餵食或灌食', price: 170 },
+            { code: 'BA05', name: '餐食照顧', price: 200 }, { code: 'BA07', name: '日常身體照顧', price: 155 },
+            { code: 'BA08', name: '足部護理', price: 500 }, { code: 'BA09', name: '協助沐浴及洗頭', price: 325 },
+            { code: 'BA10', name: '翻身拍背', price: 155 }, { code: 'BA11', name: '肢體關節活動', price: 155 },
+            { code: 'BA12', name: '協助執行輔助性醫療', price: 130 }, { code: 'BA13', name: '安全看顧', price: 200 },
+            { code: 'BA14', name: '陪伴服務', price: 175 }, { code: 'BA15', name: '巡視服務', price: 130 }
         ];
 
         let selectedItems = {};
@@ -663,54 +130,34 @@ ${reason}
             });
             document.getElementById('cms-level').addEventListener('change', calculateTotals);
             document.getElementById('user-cat').addEventListener('change', calculateTotals);
-            
-            // 預設填入今日日期於表單
-            const todayStr = new Date().toISOString().split('T')[0];
-            document.getElementById('visit-date').value = todayStr;
-            document.getElementById('report-date').value = todayStr;
         }
 
         function renderTable(data) {
             const tbody = document.getElementById('service-table-body');
             tbody.innerHTML = '';
-            if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color: #95a5a6; padding: 30px;">查無符合的服務項目</td></tr>`;
-                return;
-            }
             data.forEach(item => {
-                const tr = document.createElement('tr');
                 const isChecked = selectedItems[item.code] !== undefined;
                 const currentQty = isChecked ? selectedItems[item.code] : 1;
+                const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="text-center checkbox-cell">
-                        <input type="checkbox" id="chk-${item.code}" ${isChecked ? 'checked' : ''} onchange="toggleSelect('${item.code}', this.checked)">
-                    </td>
-                    <td><span class="badge badge-code">${item.code}</span></td>
-                    <td style="font-weight: 500;">${item.name}</td>
-                    <td class="text-right fee-text">NT$ ${item.price}</td>
-                    <td class="text-center">
-                        <input type="number" class="qty-input" min="1" max="999" value="${currentQty}" 
-                               id="qty-${item.code}" onchange="updateQuantity('${item.code}', this.value)">
-                    </td>
+                    <td><input type="checkbox" id="chk-${item.code}" ${isChecked ? 'checked' : ''} onchange="toggleSelect('${item.code}', this.checked)"></td>
+                    <td><span class="badge">${item.code}</span></td>
+                    <td>${item.name}</td>
+                    <td align="right">$${item.price}</td>
+                    <td><input type="number" class="qty-input" min="1" value="${currentQty}" id="qty-${item.code}" onchange="updateQuantity('${item.code}', this.value)"></td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
         function filterServices() {
-            const keyword = document.getElementById('search-input').value.trim().toLowerCase();
-            const filtered = serviceData.filter(item => 
-                item.code.toLowerCase().includes(keyword) || item.name.toLowerCase().includes(keyword)
-            );
-            renderTable(filtered);
+            const kw = document.getElementById('search-input').value.toLowerCase();
+            renderTable(serviceData.filter(item => item.code.toLowerCase().includes(kw) || item.name.includes(kw)));
         }
 
         function toggleSelect(code, isChecked) {
-            if (isChecked) {
-                selectedItems[code] = parseInt(document.getElementById(`qty-${code}`).value) || 1;
-            } else {
-                delete selectedItems[code];
-            }
+            if (isChecked) selectedItems[code] = parseInt(document.getElementById(`qty-${code}`).value) || 1;
+            else delete selectedItems[code];
             calculateTotals();
         }
 
@@ -738,20 +185,13 @@ ${reason}
             keys.forEach(code => {
                 const item = serviceData.find(s => s.code === code);
                 const qty = selectedItems[code];
-                const itemTotalGov = item.price * qty;
-                totalGov += itemTotalGov;
-                const div = document.createElement('div');
-                div.style.padding = '4px 0';
-                div.style.borderBottom = '1px solid #f1f1f1';
-                div.style.display = 'flex';
-                div.style.justifyContent = 'space-between';
-                div.innerHTML = `<span><strong>[${item.code}]</strong> ${item.name} × ${qty}次</span><span style="color:#666;">$ ${itemTotalGov.toLocaleString()}</span>`;
-                listEl.appendChild(div);
+                const itemTotal = item.price * qty;
+                totalGov += itemTotal;
+                listEl.innerHTML += `<div style="display:flex; justify-content:space-between; border-bottom:1px solid #ddd; padding:5px 0;"><span>[${item.code}] ${item.name} x ${qty}</span><span>$${itemTotal}</span></div>`;
             });
 
             const cmsLimit = parseInt(document.getElementById('cms-level').value);
             const catRate = parseFloat(document.getElementById('user-cat').value);
-            
             let remain = 0, userPay = 0, govSubsidy = 0, isExceed = false, excessAmount = 0;
 
             if (cmsLimit === 0) {
@@ -765,9 +205,8 @@ ${reason}
                 if (totalGov > cmsLimit) {
                     isExceed = true;
                     excessAmount = totalGov - cmsLimit;
-                    const withinCopay = Math.round(cmsLimit * catRate);
-                    userPay = withinCopay + excessAmount; 
-                    govSubsidy = cmsLimit - withinCopay;  
+                    userPay = Math.round(cmsLimit * catRate) + excessAmount; 
+                    govSubsidy = cmsLimit - Math.round(cmsLimit * catRate);  
                 } else {
                     remain = cmsLimit - totalGov;
                     userPay = Math.round(totalGov * catRate);
@@ -780,16 +219,13 @@ ${reason}
             document.getElementById('val-remain').textContent = `NT$ ${remain.toLocaleString()}`;
             document.getElementById('val-user-pay').textContent = `NT$ ${userPay.toLocaleString()}`;
             document.getElementById('val-gov-subsidy').textContent = `NT$ ${govSubsidy.toLocaleString()}`;
-
+            
             const warningEl = document.getElementById('quota-warning');
-            const remainEl = document.getElementById('val-remain');
             if (isExceed) {
                 document.getElementById('val-excess-amount').textContent = excessAmount.toLocaleString();
                 warningEl.style.display = 'block';
-                remainEl.style.color = '#e74c3c';
             } else {
                 warningEl.style.display = 'none';
-                remainEl.style.color = 'var(--primary-color)';
             }
         }
 
