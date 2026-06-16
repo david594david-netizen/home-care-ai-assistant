@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>居服督導全方位平台 - 家訪紀錄</title>
+    <style>
+        :root { --primary-color: #00796b; --primary-dark: #004d40; --primary-light: #e0f2f1; --secondary-color: #2c3e50; --background-color: #f4f7f6; --card-background: #ffffff; --border-color: #e0e0e0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: var(--background-color); color: #333; line-height: 1.6; padding: 20px; }
+        .main-container { max-width: 900px; margin: 0 auto; }
+        header { background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; }
+        header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow-x: auto; }
+        .nav-btn { text-decoration: none; display: inline-block; padding: 12px 20px; font-size: 1rem; font-weight: bold; color: var(--secondary-color); border-radius: 8px; transition: all 0.3s; white-space: nowrap; }
+        .nav-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
+        .nav-btn.active { background: var(--primary-color); color: white; }
+
+        .card { background: var(--card-background); border-radius: 12px; padding: 30px; border: 1px solid var(--border-color); }
+        .card-title { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 10px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; font-weight: bold;}
+        
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+        @media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } .full-width { grid-column: span 2; } }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-label { font-weight: bold; color: var(--secondary-color); }
+        .form-control, .form-select { padding: 10px 15px; border: 2px solid var(--border-color); border-radius: 8px; outline: none; width: 100%; font-family: inherit;}
+        .form-control:focus, .form-select:focus { border-color: var(--primary-color); }
+        textarea.form-control { resize: vertical; min-height: 80px; }
+        
+        .action-bar { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+        .btn { background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn-secondary { background-color: #7f8c8d; }
+        .output-area { background-color: #f8f9fa; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; min-height: 200px; white-space: pre-wrap; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>👩‍⚕️ 居服督導全方位工作平台</h1>
+            <p>整合長照計費試算、家訪紀錄生成與異動通報，提升督導行政效率</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <a href="index.html" class="nav-btn">💰 長照計費儀表板</a>
+            <a href="visit.html" class="nav-btn active">📝 家訪紀錄生成單</a>
+            <a href="report.html" class="nav-btn">⚠️ 異動通報產生器</a>
+        </nav>
+
+        <div class="card">
+            <div class="card-title">📝 居家督導家訪紀錄生成單</div>
+            <p style="color: #666; font-size: 0.95rem;">快速結構化您的訪視紀錄，生成後可直接複製貼上至照管系統或機構表單。</p>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">個案姓名</label>
+                    <input type="text" id="visit-name" class="form-control" placeholder="例：王小明">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">訪視日期</label>
+                    <input type="date" id="visit-date" class="form-control">
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">訪視目的</label>
+                    <select id="visit-purpose" class="form-select">
+                        <option value="例行性訪視">例行性訪視 (每月/每季)</option>
+                        <option value="新案開案評估">新案開案評估</option>
+                        <option value="服務異常處理">服務異常/申訴處理</option>
+                        <option value="更換居服員交接">更換居服員交接</option>
+                        <option value="個案狀況惡化評估">個案狀況惡化/跌倒後評估</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">個案現況與生理狀態簡述</label>
+                    <textarea id="visit-status" class="form-control" placeholder="例：個案意識清楚，但近期雙腿較無力。生命徵象穩定。"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">服務滿意度與案家反映</label>
+                    <textarea id="visit-feedback" class="form-control" placeholder="例：家屬對目前居服員的服務態度滿意，希望洗澡延後至四點。"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">督導評估與後續處置計畫</label>
+                    <textarea id="visit-action" class="form-control" placeholder="例：已與居服員協調調整時段。持續觀察無力情形，建議增購輔具。"></textarea>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn btn-secondary" onclick="clearForm()">清空表單</button>
+                <button class="btn" onclick="generateVisitText()">✨ 產生正規紀錄</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label class="form-label">產出結果 (可直接複製)：</label>
+                <div id="visit-output" class="output-area">填寫上方表單後，點擊「產生正規紀錄」...</div>
+                <div style="margin-top: 10px; text-align: right;">
+                    <button class="btn" style="background-color: #27ae60;" onclick="copyText('visit-output')">📋 複製紀錄</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            document.getElementById('visit-date').value = new Date().toISOString().split('T')[0];
+        };
+
+        function clearForm() {
+            document.getElementById('visit-name').value = '';
+            document.getElementById('visit-purpose').selectedIndex = 0;
+            document.getElementById('visit-status').value = '';
+            document.getElementById('visit-feedback').value = '';
+            document.getElementById('visit-action').value = '';
+            document.getElementById('visit-output').innerText = '填寫上方表單後，點擊「產生正規紀錄」...';
+        }
+
+        function generateVisitText() {
+            const name = document.getElementById('visit-name').value.trim() || "未填寫";
+            const date = document.getElementById('visit-date').value || "未填寫";
+            const purpose = document.getElementById('visit-purpose').value;
+            const status = document.getElementById('visit-status').value.trim() || "無特別描述";
+            const feedback = document.getElementById('visit-feedback').value.trim() || "無特別意見";
+            const action = document.getElementById('visit-action').value.trim() || "持續現有服務，後續追蹤";
+
+            const output = `【居家照顧服務 - 督導訪視紀錄】
+--------------------------------------------
+▪️ 個案姓名：${name}
+▪️ 訪視日期：${date}
+▪️ 訪視目的：${purpose}
+
+【個案現況與生理狀態】
+${status}
+
+【服務滿意度與案家反映】
+${feedback}
+
+【督導評估與後續處置計畫】
+${action}
+--------------------------------------------
+紀錄人員：(請填寫您的姓名)`;
+            document.getElementById('visit-output').innerText = output;
+        }
+
+        function copyText(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            if(!textToCopy || textToCopy.includes('點擊「產生')) return alert("請先產生內容再進行複製！");
+            navigator.clipboard.writeText(textToCopy).then(() => alert("已成功複製到剪貼簿！")).catch(() => alert("複製失敗，請手動選取複製。"));
+        }
+    </script>
+</body>
+</html>
