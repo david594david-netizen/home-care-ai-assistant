@@ -75,26 +75,26 @@
     <script>
         // 資料來源：依據您上傳的「BA碼.docx」建置
         const baInfoData = [
-            { code: 'BA01', name: '基本身體清潔 [cite: 1]', content: '梳頭、穿脫衣、床上擦澡/洗頭、排泄物清理等。[cite: 1]', limit: '原則每日 1 組；必要時早晚各 1 組。與 BA07/BA23 同時段不可併申報。[cite: 1]' },
-            { code: 'BA02', name: '基本日常照顧 [cite: 1]', content: '翻身、移位、上下床、口腔與清潔、如廁/更換、整理床單、協助用藥等。[cite: 1]', limit: '以 30 分鐘為 1 單位；每日上限 3 小時。除 BA22 巡視外，不得與其他 BA 併用。[cite: 1]' },
-            { code: 'BA03', name: '測量生命徵象 [cite: 1]', content: '測量與紀錄血壓、體溫、脈搏、呼吸，必要時通報。[cite: 1]', limit: '依個案生理/醫療需要安排。[cite: 1]' },
-            { code: 'BA04', name: '協助進食/管灌餵食 [cite: 1]', content: '備餐、餵食或管灌、觀察反應與清理。[cite: 1]', limit: '限有進食困難或管灌需求者。[cite: 1]' },
-            { code: 'BA05', name: '餐食照顧 [cite: 1]', content: '在宅備餐、整理餐具與廚房；管灌飲食備製等。[cite: 1]', limit: '通常每日 1 次（依核定計畫）。[cite: 1]' },
-            { code: 'BA07', name: '協助沐浴及洗頭 [cite: 1]', content: '穿脫衣、淋/盆浴、洗髮、前後準備與清理。[cite: 1]', limit: '與 BA01/BA23 內容重疊時，同時段不得併申報[cite: 1]' },
-            { code: 'BA08', name: '足部照護 [cite: 1]', content: '趾甲修剪、足部皮膚處理/保養、必要時轉介。[cite: 1]', limit: '多需合格人員；地方可能另有限制。[cite: 1]' },
-            { code: 'BA10', name: '翻身拍背 [cite: 1]', content: '翻身、拍痰/拍背、體位調整。[cite: 1]', limit: '與其他肢體照護可搭配，但不得重複申報。[cite: 1]' },
-            { code: 'BA11', name: '肢體關節活動 [cite: 1]', content: '關節活動/伸展，避免拘縮。[cite: 1]', limit: '須評估安全與人員能力範圍。[cite: 1]' },
-            { code: 'BA12', name: '協助上/下樓梯 [cite: 1]', content: '在宅多樓層時協助上下。[cite: 1]', limit: '高風險環境可能不予執行或需多人協助。[cite: 1]' },
-            { code: 'BA13', name: '陪同外出 [cite: 1]', content: '陪同散步/活動等外出。[cite: 1]', limit: '距離、頻率依計畫與安全評估。[cite: 1]' },
-            { code: 'BA14', name: '陪同就醫 [cite: 1]', content: '協助移動、上下車、候診陪伴等。[cite: 1]', limit: '交通方式/距離常有規範。[cite: 1]' },
-            { code: 'BA15', name: '家務協助（與個案生活直接相關） [cite: 1]', content: '居家清潔整理、洗衣等。[cite: 1]', limit: '僅限與被照顧者生活直接相關事項。[cite: 1]' },
-            { code: 'BA16', name: '代購/代領/代送（自用） [cite: 1]', content: '代購生活物資、代領藥品/文件等。[cite: 1]', limit: '多有次數/金額或內容限制。[cite: 1]' },
-            { code: 'BA17', name: '管路/導管清潔與固定等 [cite: 1]', content: '如尿管、胃管、造口袋等清潔、固定。[cite: 1]', limit: '需受訓合格且在職責範圍內。[cite: 1]' },
-            { code: 'BA18', name: '安全看視 [cite: 1]', content: '對跌倒/走失等風險提供安全看視。[cite: 1]', limit: '不可替代其他實質照顧項目。[cite: 1]' },
-            { code: 'BA20', name: '陪伴服務 [cite: 1]', content: '談話、心理支持、陪伴互動。[cite: 1]', limit: '不等於身體照顧，內容以陪伴為主。[cite: 1]' },
-            { code: 'BA22', name: '巡視服務 [cite: 1]', content: '短時到宅巡視安全與狀況。[cite: 1]', limit: '可與部分 BA 搭配（例如 BA02）。[cite: 1]' },
-            { code: 'BA23', name: '協助洗頭 [cite: 1]', content: '洗髮與吹整。[cite: 1]', limit: '與 BA01/BA07 重疊時，同時段不可併申報。[cite: 1]' },
-            { code: 'BA24', name: '協助排泄 [cite: 1]', content: '如廁協助、尿片更換、導尿袋清理等。[cite: 1]', limit: '若 BA01 當次已含排泄清理，不得重複申報。[cite: 1]' }
+            { code: 'BA01', name: '基本身體清潔', content: '梳頭、穿脫衣、床上擦澡/洗頭、排泄物清理等。', limit: '原則每日 1 組；必要時早晚各 1 組。與 BA07/BA23 同時段不可併申報。' },
+            { code: 'BA02', name: '基本日常照顧', content: '翻身、移位、上下床、口腔與清潔、如廁/更換、整理床單、協助用藥等。', limit: '以 30 分鐘為 1 單位；每日上限 3 小時。除 BA22 巡視外，不得與其他 BA 併用。' },
+            { code: 'BA03', name: '測量生命徵象', content: '測量與紀錄血壓、體溫、脈搏、呼吸，必要時通報。', limit: '依個案生理/醫療需要安排。' },
+            { code: 'BA04', name: '協助進食/管灌餵食', content: '備餐、餵食或管灌、觀察反應與清理。', limit: '限有進食困難或管灌需求者。' },
+            { code: 'BA05', name: '餐食照顧', content: '在宅備餐、整理餐具與廚房；管灌飲食備製等。', limit: '通常每日 1 次（依核定計畫）。' },
+            { code: 'BA07', name: '協助沐浴及洗頭', content: '穿脫衣、淋/盆浴、洗髮、前後準備與清理。', limit: '與 BA01/BA23 內容重疊時，同時段不得併申報' },
+            { code: 'BA08', name: '足部照護', content: '趾甲修剪、足部皮膚處理/保養、必要時轉介。', limit: '多需合格人員；地方可能另有限制。' },
+            { code: 'BA10', name: '翻身拍背', content: '翻身、拍痰/拍背、體位調整。', limit: '與其他肢體照護可搭配，但不得重複申報。' },
+            { code: 'BA11', name: '肢體關節活動', content: '關節活動/伸展，避免拘縮。', limit: '須評估安全與人員能力範圍。' },
+            { code: 'BA12', name: '協助上/下樓梯', content: '在宅多樓層時協助上下。', limit: '高風險環境可能不予執行或需多人協助。' },
+            { code: 'BA13', name: '陪同外出', content: '陪同散步/活動等外出。', limit: '距離、頻率依計畫與安全評估。' },
+            { code: 'BA14', name: '陪同就醫', content: '協助移動、上下車、候診陪伴等。', limit: '交通方式/距離常有規範。' },
+            { code: 'BA15', name: '家務協助（與個案生活直接相關）', content: '居家清潔整理、洗衣等。', limit: '僅限與被照顧者生活直接相關事項。' },
+            { code: 'BA16', name: '代購/代領/代送（自用）', content: '代購生活物資、代領藥品/文件等。', limit: '多有次數/金額或內容限制。' },
+            { code: 'BA17', name: '管路/導管清潔與固定等', content: '如尿管、胃管、造口袋等清潔、固定。', limit: '需受訓合格且在職責範圍內。' },
+            { code: 'BA18', name: '安全看視', content: '對跌倒/走失等風險提供安全看視。', limit: '不可替代其他實質照顧項目。' },
+            { code: 'BA20', name: '陪伴服務', content: '談話、心理支持、陪伴互動。', limit: '不等於身體照顧，內容以陪伴為主。' },
+            { code: 'BA22', name: '巡視服務', content: '短時到宅巡視安全與狀況。', limit: '可與部分 BA 搭配（例如 BA02）。' },
+            { code: 'BA23', name: '協助洗頭', content: '洗髮與吹整。', limit: '與 BA01/BA07 重疊時，同時段不可併申報。' },
+            { code: 'BA24', name: '協助排泄', content: '如廁協助、尿片更換、導尿袋清理等。', limit: '若 BA01 當次已含排泄清理，不得重複申報。' }
         ];
 
         function initInfo() {
