@@ -17,40 +17,79 @@
         .nav-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
         .nav-btn.active { background: var(--primary-color); color: white; }
 
-        .card { background: var(--card-background); border-radius: 12px; padding: 30px; border: 1px solid var(--border-color); }
-        .card-title { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 10px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; font-weight: bold;}
+        .card { background: var(--card-background); border-radius: 12px; padding: 30px; border: 1px solid var(--border-color); margin-bottom: 20px;}
+        .card-title { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 10px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;}
         
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         @media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } .full-width { grid-column: span 2; } }
         .form-group { display: flex; flex-direction: column; gap: 5px; }
-        .form-label { font-weight: bold; color: var(--secondary-color); }
-        .form-control, .form-select { padding: 10px 15px; border: 2px solid var(--border-color); border-radius: 8px; outline: none; width: 100%; font-family: inherit;}
+        .form-label { font-weight: bold; color: var(--secondary-color); font-size: 0.95rem;}
+        .form-control, .form-select { padding: 10px 15px; border: 2px solid var(--border-color); border-radius: 8px; outline: none; width: 100%; font-family: inherit; font-size: 0.95rem;}
         .form-control:focus, .form-select:focus { border-color: var(--primary-color); }
         textarea.form-control { resize: vertical; min-height: 80px; }
         
         .action-bar { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px; }
-        .btn { background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn { background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;}
+        .btn:hover { background-color: var(--primary-dark); }
         .btn-secondary { background-color: #7f8c8d; }
-        .output-area { background-color: #f8f9fa; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; min-height: 200px; white-space: pre-wrap; margin-top: 15px; }
+        .btn-secondary:hover { background-color: #95a5a6; }
+        .btn-save { background-color: #2980b9; }
+        .btn-save:hover { background-color: #2471a3; }
+        .output-area { background-color: #f8f9fa; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; min-height: 200px; white-space: pre-wrap; margin-top: 15px; line-height: 1.8;}
+
+        /* 設定區塊特別樣式 */
+        .settings-box { background-color: #f0f7f6; border: 1px solid #b2dfdb; border-radius: 8px; padding: 20px; margin-bottom: 20px;}
+        .settings-title { font-size: 1.1rem; color: var(--primary-dark); font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;}
+        .success-msg { color: #27ae60; font-size: 0.9rem; font-weight: bold; margin-left: 10px; display: none; }
     </style>
 </head>
 <body>
     <div class="main-container">
         <header>
-            <h1>👩‍⚕️ 尚讚居服督導全方位工作平台</h1>
+            <h1>👩‍⚕️ 居服督導全方位工作平台</h1>
             <p>整合長照計費試算、家訪紀錄生成與異動通報，提升督導行政效率</p>
         </header>
 
         <nav class="nav-tabs">
             <a href="index.html" class="nav-btn">💰 長照計費儀表板</a>
-            <a href="info.html" class="nav-btn">📖 居家服務碼別介紹</a>
             <a href="visit.html" class="nav-btn">📝 家訪紀錄生成單</a>
             <a href="report.html" class="nav-btn active">⚠️ 異動通報產生器</a>
+            <a href="info.html" class="nav-btn">📖 居家服務碼別介紹</a>
         </nav>
+
+        <!-- 單位資訊設定區塊 -->
+        <div class="settings-box">
+            <div class="settings-title">
+                ⚙️ 預設單位資訊設定 
+                <span style="font-size: 0.85rem; color: #666; font-weight: normal;">(資料將安全儲存於您的瀏覽器中，自動帶入通報結尾)</span>
+                <span id="save-success-msg" class="success-msg">✓ 儲存成功！</span>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">單位名稱</label>
+                    <input type="text" id="setting-org" class="form-control" placeholder="例：愛心居家長照機構">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">您的職稱</label>
+                    <input type="text" id="setting-title" class="form-control" placeholder="例：居服督導">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">聯絡人姓名</label>
+                    <input type="text" id="setting-name" class="form-control" placeholder="例：陳美麗">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">聯絡電話 (分機)</label>
+                    <input type="text" id="setting-phone" class="form-control" placeholder="例：02-23456789 分機 101">
+                </div>
+            </div>
+            <div style="text-align: right; margin-top: 15px;">
+                <button class="btn btn-save" onclick="saveSettings()">💾 儲存單位資訊</button>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-title">⚠️ 長照服務異動通報產生器</div>
-            <p style="color: #666; font-size: 0.95rem;">協助快速產出標準化之「異動通報文字」，方便傳送給 A 個管(照管專員) 進行核備。</p>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">協助快速產出標準化之「異動通報文字」，方便傳送給 A 個管(照管專員) 進行核備。</p>
             
             <div class="form-grid">
                 <div class="form-group">
@@ -69,6 +108,7 @@
                         <option value="【終止服務】">【終止服務】(往生/入住機構/搬家)</option>
                         <option value="【增加服務項目/次數】">【增加服務】(需調整照顧計畫)</option>
                         <option value="【減少服務項目/次數】">【減少服務】(案家需求減少)</option>
+                        <option value="【其他異動說明】">【其他異動說明】(時段調整/居服員更換等)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -97,9 +137,50 @@
     </div>
 
     <script>
+        // 常數定義 localstorage key
+        const STORAGE_KEY = 'hc_assistant_settings';
+
         window.onload = () => {
+            // 預設填入今日日期
             document.getElementById('report-date').value = new Date().toISOString().split('T')[0];
+            // 載入儲存的設定
+            loadSettings();
         };
+
+        // 儲存設定至 localStorage
+        function saveSettings() {
+            const settings = {
+                org: document.getElementById('setting-org').value.trim(),
+                title: document.getElementById('setting-title').value.trim(),
+                name: document.getElementById('setting-name').value.trim(),
+                phone: document.getElementById('setting-phone').value.trim()
+            };
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+            
+            // 顯示成功訊息動畫
+            const msgEl = document.getElementById('save-success-msg');
+            msgEl.style.display = 'inline';
+            setTimeout(() => {
+                msgEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // 從 localStorage 載入設定
+        function loadSettings() {
+            const savedStr = localStorage.getItem(STORAGE_KEY);
+            if (savedStr) {
+                try {
+                    const settings = JSON.parse(savedStr);
+                    document.getElementById('setting-org').value = settings.org || '';
+                    document.getElementById('setting-title').value = settings.title || '';
+                    document.getElementById('setting-name').value = settings.name || '';
+                    document.getElementById('setting-phone').value = settings.phone || '';
+                } catch (e) {
+                    console.error("解析設定檔失敗", e);
+                }
+            }
+        }
 
         function clearForm() {
             document.getElementById('report-name').value = '';
@@ -117,7 +198,34 @@
             const reason = document.getElementById('report-reason').value.trim() || "未詳細說明";
             const todayStr = new Date().toLocaleDateString('zh-TW');
 
-            const output = `個管您好，此為【尚讚居家服務異動通報】：
+            // 取得預設的單位資訊 (若無則使用預設文字)
+            const savedStr = localStorage.getItem(STORAGE_KEY);
+            let orgText = "B單位";
+            let signature = "";
+            
+            if (savedStr) {
+                try {
+                    const settings = JSON.parse(savedStr);
+                    if (settings.org) orgText = settings.org;
+                    
+                    // 組合簽名檔
+                    let sigParts = [];
+                    if (settings.org) sigParts.push(settings.org);
+                    if (settings.title || settings.name) {
+                        let personStr = [];
+                        if (settings.title) personStr.push(settings.title);
+                        if (settings.name) personStr.push(settings.name);
+                        sigParts.push(personStr.join(" "));
+                    }
+                    if (settings.phone) sigParts.push(`TEL: ${settings.phone}`);
+                    
+                    if(sigParts.length > 0) {
+                        signature = `\n---------------------------\n${sigParts.join('\n')}`;
+                    }
+                } catch (e) { }
+            }
+
+            const output = `個管您好，此為【${orgText} 居家服務異動通報】：
 
 📌 異動類型：${type}
 📌 個案姓名：${name}
@@ -128,7 +236,7 @@
 ${reason}
 
 再請個管協助知悉與辦理計畫異動/核備，感謝您的協助！如有需要補充資料請隨時與我聯繫。
-(通報日期：${todayStr})`;
+(通報日期：${todayStr})${signature}`;
 
             document.getElementById('report-output').innerText = output;
         }
