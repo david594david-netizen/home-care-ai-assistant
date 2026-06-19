@@ -9,7 +9,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: "Microsoft JhengHei", sans-serif; background-color: var(--background-color); color: #333; line-height: 1.6; padding: 20px; }
         .main-container { max-width: 1300px; margin: 0 auto; }
-        header { background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; }
+        header { background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
         header h1 { font-size: 3.5rem; margin-bottom: 8px; }
         
         .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow-x: auto; }
@@ -31,6 +31,7 @@
         tbody tr:hover { background-color: #fafafa; }
         .badge { padding: 5px 10px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; color: white; background-color: var(--primary-color); display: inline-block; }
         .limit-text { color: #d35400; font-size: 0.9rem; background-color: #fdeaea; padding: 8px; border-radius: 5px; border-left: 3px solid #e74c3c; display: block; margin-top: 5px;}
+        footer.site-footer { text-align: center; margin-top: 24px; color: #666; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -72,11 +73,13 @@
         </div>
     </div>
 
+    <footer class="site-footer">© copyright 大衛林 南開科技大學長期照顧與管理系</footer>
+
     <script>
         // 資料來源：依據您上傳的「BA碼.docx」建置
         const baInfoData = [
-            { code: 'BA01', name: '基本身體清潔', content: '梳頭、穿脫衣、床上擦澡/洗頭、排泄物清理等。', limit: '原則每日 1 組；必要時早晚各 1 組。與 BA07/BA23 同時段不可併申報。' },
-            { code: 'BA02', name: '基本日常照顧', content: '翻身、移位、上下床、口腔與清潔、如廁/更換、整理床單、協助用藥等。', limit: '以 30 分鐘為 1 單位；每日上限 3 小時。除 BA22 巡視外，不得與其他 BA 併用。' },
+            { code: 'BA01', name: '基本身體清潔', content: '梳頭、穿脫衣、床上擦澡/洗頭、排泄物清理等。', limit: '原則每日 1 組；必要時早晚各 1 組。與 BA01 同次不得重複申報。' },
+            { code: 'BA02', name: '基本日常照顧', content: '翻身、移位、上下床、口腔與清潔、如廁/更換、整理床單、協助用藥等。', limit: '以 30 分鐘為 1 單位計費。' },
             { code: 'BA03', name: '測量生命徵象', content: '測量與紀錄血壓、體溫、脈搏、呼吸，必要時通報。', limit: '依個案生理/醫療需要安排。' },
             { code: 'BA04', name: '協助進食/管灌餵食', content: '備餐、餵食或管灌、觀察反應與清理。', limit: '限有進食困難或管灌需求者。' },
             { code: 'BA05', name: '餐食照顧', content: '在宅備餐、整理餐具與廚房；管灌飲食備製等。', limit: '通常每日 1 次（依核定計畫）。' },
